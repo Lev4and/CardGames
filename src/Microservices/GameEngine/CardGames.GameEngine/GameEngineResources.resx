@@ -286,8 +286,14 @@
   <data name="DefaultDeckTwoRedHearts" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Assets\Decks\Default\DefaultDeckTwoRedHearts.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="DefaultFragmentShader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Shaders\Default.frag;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="DefaultIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Assets\Icons\DefaultIcon.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DefaultVertexShader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Shaders\Default.vert;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="SecondDeckAceBlackClubs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Assets\Decks\Second\SecondDeckAceBlackClubs.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

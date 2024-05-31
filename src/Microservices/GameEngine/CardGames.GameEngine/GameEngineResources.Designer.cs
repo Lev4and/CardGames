@@ -623,9 +623,29 @@ namespace CardGames.GameEngine {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
+        public static byte[] DefaultFragmentShader {
+            get {
+                object obj = ResourceManager.GetObject("DefaultFragmentShader", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
         public static byte[] DefaultIcon {
             get {
                 object obj = ResourceManager.GetObject("DefaultIcon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] DefaultVertexShader {
+            get {
+                object obj = ResourceManager.GetObject("DefaultVertexShader", resourceCulture);
                 return ((byte[])(obj));
             }
         }
