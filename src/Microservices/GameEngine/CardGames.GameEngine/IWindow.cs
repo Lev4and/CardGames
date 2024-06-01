@@ -1,7 +1,7 @@
 ﻿namespace CardGames.GameEngine
 {
-    public class SceneObject
+    public interface IWindow
     {
-        
+
     }
 }

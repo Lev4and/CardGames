@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-namespace CardGames.GameEngine
+namespace CardGames.GameEngine.Rendering.Buffering
 {
     public class VertexArrayObject
     {
@@ -26,19 +26,19 @@ namespace CardGames.GameEngine
             Unbind();
         }
 
-        public void Bind() 
-        { 
+        public void Bind()
+        {
             GL.BindVertexArray(_id);
         }
 
-        public void Unbind() 
-        { 
-            GL.BindVertexArray(0); 
+        public void Unbind()
+        {
+            GL.BindVertexArray(0);
         }
-        
-        public void Delete() 
-        { 
-            GL.DeleteVertexArray(_id); 
+
+        public void Delete()
+        {
+            GL.DeleteVertexArray(_id);
         }
     }
 }

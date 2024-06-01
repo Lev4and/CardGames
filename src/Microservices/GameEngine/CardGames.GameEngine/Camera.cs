@@ -2,7 +2,7 @@
 
 namespace CardGames.GameEngine
 {
-    public class Camera
+    public class Camera : ICamera
     {
         private Vector3 _front = -Vector3.UnitZ;
         private Vector3 _up = Vector3.UnitY;
@@ -14,7 +14,7 @@ namespace CardGames.GameEngine
 
         public Vector3 Position { get; set; }
 
-        public float AspectRatio { private get; set; }
+        public float AspectRatio { get; set; }
 
         public Vector3 Front
         {
@@ -75,6 +75,11 @@ namespace CardGames.GameEngine
             }
         }
 
+        public Camera()
+        {
+            
+        }
+
         public Camera(Vector3 position, float aspectRatio)
         {
             Position = position;
@@ -99,6 +104,7 @@ namespace CardGames.GameEngine
 
             _front = Vector3.Normalize(_front);
             _right = Vector3.Normalize(Vector3.Cross(_front, Vector3.UnitY));
+
             _up = Vector3.Normalize(Vector3.Cross(_right, _front));
         }
     }

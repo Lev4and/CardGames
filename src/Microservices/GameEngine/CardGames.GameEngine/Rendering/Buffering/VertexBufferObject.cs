@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-namespace CardGames.GameEngine
+namespace CardGames.GameEngine.Rendering.Buffering
 {
     public class VertexBufferObject
     {
@@ -33,23 +33,23 @@ namespace CardGames.GameEngine
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, _id);
 
-            GL.BufferData(BufferTarget.ArrayBuffer, data.Count() * Vector3.SizeInBytes, 
+            GL.BufferData(BufferTarget.ArrayBuffer, data.Count() * Vector3.SizeInBytes,
                 data.ToArray(), BufferUsageHint.StaticDraw);
         }
 
-        public void Bind() 
-        { 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _id); 
+        public void Bind()
+        {
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _id);
         }
 
-        public void Unbind() 
-        { 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); 
+        public void Unbind()
+        {
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         }
 
-        public void Delete() 
-        { 
-            GL.DeleteBuffer(_id); 
+        public void Delete()
+        {
+            GL.DeleteBuffer(_id);
         }
     }
 }

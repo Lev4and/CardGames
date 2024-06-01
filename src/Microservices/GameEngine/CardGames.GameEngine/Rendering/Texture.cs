@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using StbImageSharp;
 
-namespace CardGames.GameEngine
+namespace CardGames.GameEngine.Rendering
 {
     public class Texture
     {
@@ -19,7 +19,7 @@ namespace CardGames.GameEngine
 
             var image = ImageResult.FromMemory(fileContent, ColorComponents.RedGreenBlueAlpha);
 
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, 
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width,
                 image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);
 
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);

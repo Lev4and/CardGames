@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="OpenTK" Version="4.8.2" />
     <PackageReference Include="StbImageSharp" Version="2.27.14" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Rendering\Shaders\" />
+    <Folder Include="Rendering\Textures\" />
     <Folder Include="Resources\Shaders\" />
+    <Folder Include="Scenes\" />
   </ItemGroup>
 
 </Project>

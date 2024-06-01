@@ -1,68 +1,98 @@
-﻿using CardGames.GameLogic;
+﻿using CardGames.GameEngine.Rendering;
+using CardGames.GameEngine.Rendering.Buffering;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace CardGames.GameEngine
 {
-    public class Scene : GameWindow
+    public class Scene : IScene
     {
+        private readonly List<IGameObject> _gameObjects;
+
         private readonly float[] _vertices =
-        {    
-             0.5f,  0.7f,  0.0f,  1.0f,  1.0f,
-             0.5f, -0.7f,  0.0f,  1.0f,  0.0f,
-            -0.5f, -0.7f,  0.0f,  0.0f,  0.0f,
-            -0.5f,  0.7f,  0.0f,  0.0f,  1.0f 
-        };
-
-        private readonly uint[] _indices =
         {
-            0, 1, 3,
-            1, 2, 3
+            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+             0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+            -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+             0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+             0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
         };
 
-        private VertexArrayObject _vertexArrayObject;
-        private VertexBufferObject _vertexBufferObject;
-        private ElementBufferObject _elementBufferObject;
+        public ICamera Camera { get; }
+
+        private VertexArrayObject _vao;
+        private VertexBufferObject _vbo;
 
         private Shader _shader;
+        private Texture _texture;
 
-        private Camera _camera;
-
-        private bool _firstMove = true;
-
-        private Vector2 _lastPosition;
-
-        private double _time;
-
-        private readonly ICardCollectionFactory _cardCollectionFactory;
-        private readonly ICardCollection _cardCollection;
-
-        private readonly IDictionary<string, Texture> _textures;
-
-        public Scene(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : 
-            base(gameWindowSettings, nativeWindowSettings)
+        public Scene()
         {
-            _cardCollectionFactory = new CardCollectionFactory(new CardIdRange(1, 54));
-            _cardCollection = _cardCollectionFactory.Create();
-
-            _textures = new Dictionary<string, Texture>();
+            _gameObjects = new List<IGameObject>();
+            
+            Camera = new Camera();
         }
 
-        protected override void OnLoad()
+        public void AddObject(IGameObject gameObject)
         {
-            base.OnLoad();
+            _gameObjects.Add(gameObject);
+        }
 
+        public IGameObject? FindObjectById(Guid id)
+        {
+            return _gameObjects.FirstOrDefault(gameObject => gameObject.Id == id);
+        }
+
+        public void RemoveObject(IGameObject gameObject)
+        {
+            _gameObjects.Remove(gameObject);
+        }
+
+        public void Load()
+        {
             GL.ClearColor(Color4.Black);
 
             GL.Enable(EnableCap.DepthTest);
 
-            _vertexArrayObject = new VertexArrayObject();
+            _vbo = new VertexBufferObject(_vertices);
 
-            _vertexBufferObject = new VertexBufferObject(_vertices);
-            _elementBufferObject = new ElementBufferObject(_indices);
+            _vao = new VertexArrayObject();
 
             _shader = new Shader(GameEngineResources.DefaultVertexShader, GameEngineResources.DefaultFragmentShader);
             _shader.Activate();
@@ -71,160 +101,65 @@ namespace CardGames.GameEngine
 
             GL.EnableVertexAttribArray(vertexLocation);
 
-            GL.VertexAttribPointer(vertexLocation, 3, VertexAttribPointerType.Float, 
+            GL.VertexAttribPointer(vertexLocation, 3, VertexAttribPointerType.Float,
                 false, 5 * sizeof(float), 0);
 
             var textureCoordLocation = _shader.GetAttribProgram("aTexCoord");
 
             GL.EnableVertexAttribArray(textureCoordLocation);
 
-            GL.VertexAttribPointer(textureCoordLocation, 2, VertexAttribPointerType.Float, false, 
+            GL.VertexAttribPointer(textureCoordLocation, 2, VertexAttribPointerType.Float, false,
                 5 * sizeof(float), 3 * sizeof(float));
 
-            foreach (var card in _cardCollection)
-            {
-                var frontCardTextureContent = (byte[]?)GameEngineResources.ResourceManager.GetObject($"ThirdDeck{card}");
-
-                if (frontCardTextureContent is not null)
-                {
-                    _textures.Add(card.ToString(), new Texture(frontCardTextureContent));
-                }
-            }
-
-            var backCardTextureContent = (byte[]?)GameEngineResources.ResourceManager.GetObject($"ThirdDeckBack");
-
-            if (backCardTextureContent is not null)
-            {
-                _textures.Add("Back", new Texture(backCardTextureContent));
-            }
-
-            _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
-
-            CursorState = CursorState.Grabbed;
+            _texture = new Texture(GameEngineResources.AwesomeFace);
         }
 
-        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        public void Render()
         {
-            base.OnMouseWheel(e);
-
-            _camera.Fov -= e.OffsetY;
-        }
-
-        protected override void OnKeyDown(KeyboardKeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-
-            if (e.Key == Keys.Escape)
-            {
-                Close();
-            }
-        }
-
-        protected override void OnFramebufferResize(FramebufferResizeEventArgs e)
-        {
-            base.OnFramebufferResize(e);
-
-            GL.Viewport(0, 0, e.Width, e.Height);
-
-            _camera.AspectRatio = Size.X / (float)Size.Y;
-        }
-
-        protected override void OnRenderFrame(FrameEventArgs args)
-        {
-            base.OnRenderFrame(args);
-
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            _vertexArrayObject.Bind();
+            _vao.Bind();
 
             _shader.Activate();
 
-            for (var i = 0; i < _cardCollection.Count(); i+= 1)
+            _texture.Bind();
+
+            for (var x = -10.0f; x <= 10.0f; x += 2.0f)
             {
-                _textures[_cardCollection.ElementAt(i).ToString()].Bind();
+                for (var y = -10.0f; y <= 10.0f; y += 2.0f)
+                {
+                    for (var z = -10.0f; z <= 10.0f; z += 2.0f)
+                    {
+                        var model = Matrix4.CreateTranslation(new Vector3(x, y, z));
 
-                var model = Matrix4.CreateTranslation(new Vector3(i % 8 * 1.5f, i / 8 % 8 * -1.5f, 0.0f));
+                        _shader.SetMatrix4("model", model);
 
-                _shader.SetMatrix4("model", model);
-
-                GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
-                
-                _textures[_cardCollection.ElementAt(i).ToString()].Unbind();
+                        GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+                    }
+                }
             }
 
-            _shader.SetMatrix4("view", _camera.GetViewMatrix());
-            _shader.SetMatrix4("projection", _camera.GetProjectionMatrix());
+            _texture.Unbind();
 
-            SwapBuffers();
+            _shader.SetMatrix4("view", Camera.GetViewMatrix());
+            _shader.SetMatrix4("projection", Camera.GetProjectionMatrix());
+
+            _shader.Deactivate();
+
+            _vao.Unbind();
+
         }
 
-        protected override void OnUpdateFrame(FrameEventArgs args)
+        public void Unload()
         {
-            base.OnUpdateFrame(args);
-
-            if (!IsFocused)
-            {
-                return;
-            }
-
-            var input = KeyboardState;
-
-            const float cameraSpeed = 1.5f;
-            const float sensitivity = 0.2f;
-
-            if (input.IsKeyDown(Keys.W))
-            {
-                _camera.Position += _camera.Front * cameraSpeed * (float)args.Time;
-            }
-
-            if (input.IsKeyDown(Keys.S))
-            {
-                _camera.Position -= _camera.Front * cameraSpeed * (float)args.Time;
-            }
-
-            if (input.IsKeyDown(Keys.A))
-            {
-                _camera.Position -= _camera.Right * cameraSpeed * (float)args.Time;
-            }
-
-            if (input.IsKeyDown(Keys.D))
-            {
-                _camera.Position += _camera.Right * cameraSpeed * (float)args.Time;
-            }
-
-            if (input.IsKeyDown(Keys.Space))
-            {
-                _camera.Position += _camera.Up * cameraSpeed * (float)args.Time;
-            }
-
-            if (input.IsKeyDown(Keys.LeftShift))
-            {
-                _camera.Position -= _camera.Up * cameraSpeed * (float)args.Time;
-            }
-
-            var mouse = MouseState;
-
-            if (_firstMove)
-            {
-                _lastPosition = new Vector2(mouse.X, mouse.Y);
-
-                _firstMove = false;
-            }
-            else
-            {
-                var deltaX = mouse.X - _lastPosition.X;
-                var deltaY = mouse.Y - _lastPosition.Y;
-
-                _lastPosition = new Vector2(mouse.X, mouse.Y);
-
-                _camera.Yaw += deltaX * sensitivity;
-                _camera.Pitch -= deltaY * sensitivity;
-            }
+            _texture.Delete();
+            _shader.Delete();
+            _vao.Delete();
         }
 
-        protected override void OnUnload()
+        public void Dispose()
         {
-            base.OnUnload();
+            
         }
     }
 }

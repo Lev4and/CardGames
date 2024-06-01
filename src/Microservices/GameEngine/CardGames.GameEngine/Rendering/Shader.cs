@@ -2,7 +2,7 @@
 using OpenTK.Mathematics;
 using System.Text;
 
-namespace CardGames.GameEngine
+namespace CardGames.GameEngine.Rendering
 {
     public class Shader
     {
@@ -46,7 +46,7 @@ namespace CardGames.GameEngine
             GL.UseProgram(0);
         }
 
-        public void DeleteProgram()
+        public void Delete()
         {
             GL.DeleteProgram(_id);
         }
@@ -75,9 +75,9 @@ namespace CardGames.GameEngine
             var id = GL.CreateShader(shaderType);
 
             GL.ShaderSource(id, Encoding.UTF8.GetString(shaderContent));
-            
+
             GL.CompileShader(id);
-            
+
             GL.GetShader(id, ShaderParameter.CompileStatus, out var compileStatusCode);
 
             if (compileStatusCode != (int)All.True)

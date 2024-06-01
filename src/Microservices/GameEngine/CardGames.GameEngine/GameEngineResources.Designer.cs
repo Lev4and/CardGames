@@ -63,6 +63,16 @@ namespace CardGames.GameEngine {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
+        public static byte[] AwesomeFace {
+            get {
+                object obj = ResourceManager.GetObject("AwesomeFace", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
         public static byte[] DefaultBackground {
             get {
                 object obj = ResourceManager.GetObject("DefaultBackground", resourceCulture);
