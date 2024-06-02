@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CardGames.GameEngine {
+namespace CardGames.GameAssets {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace CardGames.GameEngine {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class GameEngineResources {
+    public class GameAssets {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GameEngineResources() {
+        internal GameAssets() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace CardGames.GameEngine {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CardGames.GameEngine.GameEngineResources", typeof(GameEngineResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CardGames.GameAssets.GameAssets", typeof(GameAssets).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,16 +57,6 @@ namespace CardGames.GameEngine {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        public static byte[] AwesomeFace {
-            get {
-                object obj = ResourceManager.GetObject("AwesomeFace", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -633,29 +623,9 @@ namespace CardGames.GameEngine {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        public static byte[] DefaultFragmentShader {
-            get {
-                object obj = ResourceManager.GetObject("DefaultFragmentShader", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
         public static byte[] DefaultIcon {
             get {
                 object obj = ResourceManager.GetObject("DefaultIcon", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        public static byte[] DefaultVertexShader {
-            get {
-                object obj = ResourceManager.GetObject("DefaultVertexShader", resourceCulture);
                 return ((byte[])(obj));
             }
         }

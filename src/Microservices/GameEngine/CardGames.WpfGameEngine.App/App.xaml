@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="CardGames.WpfGameEngine.App.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CardGames.WpfGameEngine.App"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources />
+</Application>
