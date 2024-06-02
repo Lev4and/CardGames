@@ -4,7 +4,7 @@
     {
         public int Compare(CardValue x, CardValue y)
         {
-            return x.CompareTo(y);
+            return (int)x - (int)y;
         }
     }
 }
