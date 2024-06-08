@@ -6,6 +6,8 @@
 
         public DeckFactory(ICardCollectionFactory factory)
         {
+            ArgumentNullException.ThrowIfNull(factory, nameof(factory));
+
             _factory = factory;
         }
 

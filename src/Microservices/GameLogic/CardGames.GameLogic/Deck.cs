@@ -14,6 +14,8 @@
 
         public IEnumerable<ICard> TakeTop(int count)
         {
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(count, nameof(count));
+
             var result = new List<ICard>();
 
             for (var i = 0; i < count; i += 1)
@@ -47,6 +49,8 @@
 
         public void PutDown(ICard card)
         {
+            ArgumentNullException.ThrowIfNull(card, nameof(card));
+
             Enqueue(card);
         }
     }

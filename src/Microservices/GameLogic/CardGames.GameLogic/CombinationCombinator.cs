@@ -8,13 +8,15 @@ namespace CardGames.GameLogic
 
         public CombinationCombinator(int maxItemsInCombination)
         {
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maxItemsInCombination);
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maxItemsInCombination, nameof(maxItemsInCombination));
 
             MaxItemsInCombination = maxItemsInCombination;
         }
 
         public IReadOnlyCollection<ICombination<T>> Combinate(IEnumerable<T> items)
         {
+            ArgumentNullException.ThrowIfNull(items, nameof(items));
+
             var combinations = new List<ICombination<T>>();
 
             if (!items.Any())

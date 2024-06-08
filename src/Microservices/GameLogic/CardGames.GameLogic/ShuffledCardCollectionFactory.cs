@@ -7,7 +7,10 @@
 
         public ShuffledCardCollectionFactory(ICardIdRange range)
         {
+            ArgumentNullException.ThrowIfNull(range, nameof(range));
+
             _range = range;
+
             _random = new Random();
         }
 

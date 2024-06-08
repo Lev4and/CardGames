@@ -6,6 +6,8 @@
 
         public CardCollectionFactory(ICardIdRange range)
         {
+            ArgumentNullException.ThrowIfNull(range, nameof(range));
+
             _range = range;
         }
 
