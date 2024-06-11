@@ -5,22 +5,22 @@ namespace CardGames.OpenGLGameEngine.Models.Shapes3D.Models
 {
     public class Mesh : Shape3D
     {
-        private readonly float[] _vertices;
         private readonly uint[] _indices;
-
-        public override float[] Vertices 
-        {
-            get
-            {
-                return _vertices;
-            }
-        }
+        private readonly float[] _vertices;
 
         public uint[] Indices
         {
             get
             {
                 return _indices;
+            }
+        }
+
+        public override float[] Vertices 
+        {
+            get
+            {
+                return _vertices;
             }
         }
 
@@ -32,12 +32,12 @@ namespace CardGames.OpenGLGameEngine.Models.Shapes3D.Models
 
         public override void BindAndBuffer(Shader shader)
         {
-            ElementArrayBuffer(shader, Indices);
+            ElementArrayBuffer(shader, _indices);
         }
 
         public override void Draw(Shader shader, TransformComponent transform)
         {
-            DrawShape(shader, transform, () => GL.DrawElements(PrimitiveType.Triangles, Indices.Count(), 
+            DrawShape(shader, transform, () => GL.DrawElements(PrimitiveType.Triangles, _indices.Count(), 
                 DrawElementsType.UnsignedInt, 0));
         }
     }

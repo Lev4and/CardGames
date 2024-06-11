@@ -20,11 +20,11 @@ namespace CardGames.OpenGLGameEngine.Engine
         private bool _isFirstMove;
         private Vector2 _lastPosition;
 
-        private readonly SceneManager _sceneManager;
-
         private readonly TimeService _timeService;
         private readonly WindowService _windowService;
         private readonly PhysicsService _physicsService;
+
+        private readonly SceneManager _sceneManager;
 
         public Window(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, bool isFullScreenLaunch) : 
             base(gameWindowSettings, nativeWindowSettings)
@@ -35,14 +35,14 @@ namespace CardGames.OpenGLGameEngine.Engine
             _isFirstMove = true;
             _lastPosition = Vector2.Zero;
 
-            _sceneManager = SceneManager.GetInstance();
-
             _timeService = TimeService.GetInstance();
 
             _windowService = WindowService.GetInstance();
             _windowService.GameWindowReference = this;
 
             _physicsService = PhysicsService.GetInstance();
+
+            _sceneManager = SceneManager.GetInstance();
         }
 
         protected override void OnLoad()

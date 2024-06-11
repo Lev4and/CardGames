@@ -59,12 +59,36 @@ namespace CardGames.OpenGLGameEngine.Scenes
             skybox.AddComponent(new SkyboxComponent(_shaders[ShaderConstants.SkyboxShader], 
                 new Models.Skybox.Skybox(skyboxTextureFilePaths)));
 
-            //var plane = new Plane(_shaders[ShaderConstants.TextureShader],
-            //    EntityComponentManager.AddEntity(Enums.Layer.Ground), new Vector3(0.0f, 0.0f, 0.0f),
-            //        scale: new Vector2(15.0f, 15.0f));
+            var plane = new Plane(_shaders[ShaderConstants.TextureShader],
+                EntityComponentManager.AddEntity(Enums.Layer.Ground), new Vector3(0.0f, 0.0f, 0.0f),
+                    scale: new Vector2(15.0f, 15.0f));
 
             var player = new Player(_shaders[ShaderConstants.TextureShader], 
                 EntityComponentManager.AddEntity(Enums.Layer.Player));
+
+            var pointLight1 = EntityComponentManager.AddEntity();
+            var pointLight2 = EntityComponentManager.AddEntity();
+            var pointLight3 = EntityComponentManager.AddEntity();
+            var pointLight4 = EntityComponentManager.AddEntity();
+
+            pointLight1.AddComponent(new PointLightComponent(_shaders[ShaderConstants.TextureShader], 
+                new Vector3(0.7f, 0.2f, 2.0f)));
+            pointLight2.AddComponent(new PointLightComponent(_shaders[ShaderConstants.TextureShader], 
+                new Vector3(2.3f, -3.3f, -4.0f)));
+            pointLight3.AddComponent(new PointLightComponent(_shaders[ShaderConstants.TextureShader], 
+                new Vector3(-4.0f, 2.0f, -12.0f)));
+            pointLight4.AddComponent(new PointLightComponent(_shaders[ShaderConstants.TextureShader], 
+                new Vector3(0.0f, 0.0f, -3.0f)));
+
+            var directionalLightComponent = EntityComponentManager.AddEntity();
+
+            directionalLightComponent.AddComponent(new DirectionalLightComponent(
+                _shaders[ShaderConstants.TextureShader], new Vector3(-0.2f, -1.0f, -0.3f)));
+
+            var materialComponent = EntityComponentManager.AddEntity();
+
+            materialComponent.AddComponent(new MaterialComponent(
+                _shaders[ShaderConstants.TextureShader]));
         }
     }
 }
