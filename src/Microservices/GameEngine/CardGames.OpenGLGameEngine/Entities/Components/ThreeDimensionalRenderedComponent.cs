@@ -62,7 +62,7 @@ namespace CardGames.OpenGLGameEngine.Entities.Components
             {
                 Textures[i].Bind(TextureUnit.Texture0 + i);
 
-                GL.BindTexture(TextureTarget.Texture2D, 0);
+                Textures[i].Unbind();
             }
         }
 

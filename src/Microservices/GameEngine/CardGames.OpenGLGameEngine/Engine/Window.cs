@@ -118,6 +118,8 @@ namespace CardGames.OpenGLGameEngine.Engine
         protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
             base.OnMouseWheel(e);
+
+            _sceneManager.SetActiveComponentReferences(new OnMouseWheelAttribute(), e.OffsetY);
         }
 
         protected override void OnResize(ResizeEventArgs e)

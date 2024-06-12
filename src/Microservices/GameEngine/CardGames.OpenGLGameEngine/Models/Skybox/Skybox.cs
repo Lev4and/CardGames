@@ -113,9 +113,7 @@ namespace CardGames.OpenGLGameEngine.Models.Skybox
 
             GL.DepthMask(true);
 
-            _cubeMapTexture.Unbind();
-
-            shader.Deactivate();
+            _cubeMapTexture.Unbind(TextureUnit.Texture0);
 
             GL.BindVertexArray(0);
 

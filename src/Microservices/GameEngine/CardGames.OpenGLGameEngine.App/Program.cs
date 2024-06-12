@@ -7,6 +7,7 @@ var gameWindowSettings = GameWindowSettings.Default;
 
 var nativeWindowSettings = new NativeWindowSettings()
 {
+    NumberOfSamples = 4,
     Profile = ContextProfile.Core,
     APIVersion = new Version(3, 3),
     ClientSize = new Vector2i(1280, 720),

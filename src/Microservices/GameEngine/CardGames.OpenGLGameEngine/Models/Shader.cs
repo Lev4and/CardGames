@@ -73,26 +73,36 @@ namespace CardGames.OpenGLGameEngine.Models
 
         public void SetInt(string name, int data)
         {
+            Activate();
+
             GL.Uniform1(_uniformLocations[name], data);
         }
 
         public void SetFloat(string name, float data)
         {
+            Activate();
+
             GL.Uniform1(_uniformLocations[name], data);
         }
 
         public void SetVector3(string name, Vector3 data)
         {
+            Activate();
+
             GL.Uniform3(_uniformLocations[name], data);
         }
 
         public void SetMatrix4(string name, bool transpose, Matrix4 matrix)
         {
+            Activate();
+
             GL.UniformMatrix4(_uniformLocations[name], transpose, ref matrix);
         }
 
         public void SetUniform4(string name, Vector4 vector)
         {
+            Activate();
+
             GL.Uniform4(_uniformLocations[name], vector);
         }
 

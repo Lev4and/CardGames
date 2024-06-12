@@ -56,7 +56,7 @@ namespace CardGames.OpenGLGameEngine.Scenes
 
             var skybox = EntityComponentManager.AddEntity();
 
-            skybox.AddComponent(new SkyboxComponent(_shaders[ShaderConstants.SkyboxShader], 
+            skybox.AddComponent(new SkyboxComponent(_shaders[ShaderConstants.SkyboxShader],
                 new Models.Skybox.Skybox(skyboxTextureFilePaths)));
 
             var plane = new Plane(_shaders[ShaderConstants.TextureShader],

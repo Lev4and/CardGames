@@ -16,7 +16,7 @@ namespace CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Entities
             _entity = entity;
 
             _entity.AddComponent(new PlayerComponent(_shader, new Vector3(0.0f, 2.0f, 0.0f)));
-            _entity.GetComponent<PlayerComponent>().ActiveMovementPreset = Enums.MovementPresets.Player;
+            _entity.GetComponent<PlayerComponent>().ActiveMovementPreset = Enums.MovementPresets.Spectator;
         }
     }
 }
