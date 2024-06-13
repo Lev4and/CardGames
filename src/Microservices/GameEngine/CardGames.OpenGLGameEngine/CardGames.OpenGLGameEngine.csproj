@@ -66,6 +66,9 @@
     <None Update="Assets\Fonts\CORBELZ.TTF">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Models\Card.dae">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Models\Plane.dae">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

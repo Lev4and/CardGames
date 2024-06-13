@@ -1,4 +1,5 @@
-﻿using CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Entities;
+﻿using CardGames.GameLogic;
+using CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Entities;
 using CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Shapes;
 using CardGames.OpenGLGameEngine.Entities;
 using CardGames.OpenGLGameEngine.Entities.Components;
@@ -89,6 +90,17 @@ namespace CardGames.OpenGLGameEngine.Scenes
 
             materialComponent.AddComponent(new MaterialComponent(
                 _shaders[ShaderConstants.TextureShader]));
+
+            var cardCollectionFactory = new CardCollectionFactory(new CardIdRange(CardConstants.MinId, CardConstants.MaxId));
+            var cardCollectionFactoryDecorator = new ShuffledCardCollectionFactoryDecorator(cardCollectionFactory);
+            var cardCollection = cardCollectionFactoryDecorator.Create();
+
+            for (var i = 0; i < cardCollection.Count(); i += 1)
+            {
+                new Assets.Scripts.Shared.Shapes.Card(_shaders[ShaderConstants.TextureShader],
+                    EntityComponentManager.AddEntity(Enums.Layer.Ground), $"Assets/Decks/Second/SecondDeck{cardCollection.ElementAt(i).ToString()}.png",
+                        new Vector3(i % 8 * 1.5f, 1.0f, i / 8 % 8 * -1.5f));
+            }
         }
     }
 }
