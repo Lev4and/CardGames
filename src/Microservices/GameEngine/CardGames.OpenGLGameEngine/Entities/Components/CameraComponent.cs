@@ -100,7 +100,7 @@ namespace CardGames.OpenGLGameEngine.Entities.Components
         {
             base.Init();
 
-            Transform = Entity.AddComponent(new TransformComponent(Vector3.UnitZ * 3));
+            Transform = Entity.AddComponent(new TransformComponent(Vector3.Zero));
         }
         public override void Draw()
         {

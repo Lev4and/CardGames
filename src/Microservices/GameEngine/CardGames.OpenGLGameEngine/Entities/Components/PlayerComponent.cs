@@ -25,7 +25,7 @@ namespace CardGames.OpenGLGameEngine.Entities.Components
         private SpotLightComponent _flashlight = null!;
         private BoxRigidComponent _boxRigidComponent = null!;
 
-        public MovementPresets ActiveMovementPreset { get; set; } = MovementPresets.Player;
+        public MovementPresets ActiveMovementPreset { get; set; } = MovementPresets.Spectator;
         
         public PlayerComponent(Shader shader, Vector3? startingLocation = null)
         {

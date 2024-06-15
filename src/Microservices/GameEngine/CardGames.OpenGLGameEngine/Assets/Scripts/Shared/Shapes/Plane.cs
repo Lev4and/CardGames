@@ -11,19 +11,19 @@ namespace CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Shapes
         private Shader _shader;
         private Entity _entity;
 
-        public Vector3 _position;
-        public Quaternion? _rotation;
-        public Vector2? _scale;
+        public Vector3 Position;
+        public Quaternion? Rotation;
+        public Vector2? Scale;
 
         public Plane(Shader shader, Entity entity, Vector3 position, Quaternion? rotation = null, Vector2? scale = null)
         {
             _shader = shader;
             _entity = entity;
 
-            _position = position;
-            _rotation = rotation;
+            Position = position;
+            Rotation = rotation;
 
-            _scale = scale;
+            Scale = scale;
 
             _entity.AddComponent(new ModelComponent(_shader, 
                 new Model($"Assets/Models/Plane.dae"), 

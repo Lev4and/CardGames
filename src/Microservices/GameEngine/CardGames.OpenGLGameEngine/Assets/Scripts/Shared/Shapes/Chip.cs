@@ -1,13 +1,13 @@
-﻿using CardGames.OpenGLGameEngine.Entities.Components;
+﻿using CardGames.GameLogic;
+using CardGames.OpenGLGameEngine.Entities.Components;
 using CardGames.OpenGLGameEngine.Entities;
 using CardGames.OpenGLGameEngine.Models.Shapes3D.Models;
 using CardGames.OpenGLGameEngine.Models;
 using OpenTK.Mathematics;
-using CardGames.GameLogic;
 
 namespace CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Shapes
 {
-    public class Card
+    public class Chip
     {
         private Shader _shader;
         private Entity _entity;
@@ -16,7 +16,7 @@ namespace CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Shapes
         public Quaternion? Rotation;
         public Vector2? Scale;
 
-        public Card(Shader shader, Entity entity, ICard card, string deckName, Vector3 position, 
+        public Chip(Shader shader, Entity entity, string chipColor1, string chipColor2, Vector3 position,
             Quaternion? rotation = null, Vector2? scale = null)
         {
             _shader = shader;
@@ -27,7 +27,7 @@ namespace CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Shapes
             Scale = scale;
 
             _entity.AddComponent(new ModelComponent(_shader,
-                new Model($"Assets/Models/Card.dae"),
+                new Model($"Assets/Models/Chip.dae"),
                 position,
                 rotation,
                 scale != null
@@ -36,13 +36,10 @@ namespace CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Shapes
                 new Dictionary<string, Texture>
                 {
                     {
-                        "Side", new Texture("Assets/Textures/CardSideWhite.png")
+                        "Color_1", new Texture($"Assets/Textures/{"Chip"}{chipColor1}.png")
                     },
                     {
-                        "Front", new Texture($"Assets/Decks/{deckName}/{deckName}Deck{card.ToString()}.png")
-                    },
-                    {
-                        "Background", new Texture($"Assets/Decks/{deckName}/{deckName}Deck{"Back"}.png")
+                        "Color_2", new Texture($"Assets/Textures/{"Chip"}{chipColor2}.png")
                     },
                 }));
         }

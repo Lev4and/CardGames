@@ -61,8 +61,8 @@ namespace CardGames.OpenGLGameEngine.Scenes
                 new Models.Skybox.Skybox(skyboxTextureFilePaths)));
 
             var plane = new Plane(_shaders[ShaderConstants.TextureShader],
-                EntityComponentManager.AddEntity(Enums.Layer.Ground), new Vector3(0.0f, 0.0f, 0.0f),
-                    scale: new Vector2(15.0f, 15.0f));
+                EntityComponentManager.AddEntity(Enums.Layer.Ground), new Vector3(0.0f, -3.925f, 0.0f),
+                    scale: new Vector2(100.0f, 100.0f));
 
             var player = new Player(_shaders[ShaderConstants.TextureShader], 
                 EntityComponentManager.AddEntity(Enums.Layer.Player));
@@ -91,15 +91,52 @@ namespace CardGames.OpenGLGameEngine.Scenes
             materialComponent.AddComponent(new MaterialComponent(
                 _shaders[ShaderConstants.TextureShader]));
 
-            var cardCollectionFactory = new CardCollectionFactory(new CardIdRange(CardConstants.MinId, CardConstants.MaxId));
-            var cardCollectionFactoryDecorator = new ShuffledCardCollectionFactoryDecorator(cardCollectionFactory);
-            var cardCollection = cardCollectionFactoryDecorator.Create();
+            var table5 = new Table(_shaders[ShaderConstants.TextureShader],
+                EntityComponentManager.AddEntity(Enums.Layer.Ground),
+                new Vector3(0f, 0f, 0f));
 
-            for (var i = 0; i < cardCollection.Count(); i += 1)
+            var cardCollectionFactory = new CardCollectionFactory(new CardIdRange(CardConstants.MinId, CardConstants.MaxId));
+            var deckFactory = new DeckFactory(cardCollectionFactory);
+            var deck = deckFactory.Create();
+
+            new Chip(_shaders[ShaderConstants.TextureShader],
+                EntityComponentManager.AddEntity(Enums.Layer.Ground),
+                "Red", "White", new Vector3(5.5f + table5.Position.X - (1f * 3), 
+                    0.1f, 2.9f + table5.Position.Z));
+
+            new Chip(_shaders[ShaderConstants.TextureShader],
+                EntityComponentManager.AddEntity(Enums.Layer.Ground),
+                "Green", "White", new Vector3(5.5f + table5.Position.X - (1f * 4),
+                    0.1f, 2.9f + table5.Position.Z));
+
+            new Chip(_shaders[ShaderConstants.TextureShader],
+                EntityComponentManager.AddEntity(Enums.Layer.Ground),
+                "Blue", "White", new Vector3(5.5f + table5.Position.X - (1f * 5),
+                    0.1f, 2.9f + table5.Position.Z));
+
+            new Chip(_shaders[ShaderConstants.TextureShader],
+                EntityComponentManager.AddEntity(Enums.Layer.Ground),
+                "Yellow", "White", new Vector3(5.5f + table5.Position.X - (1f * 6),
+                    0.1f, 2.9f + table5.Position.Z));
+
+            new Chip(_shaders[ShaderConstants.TextureShader],
+                EntityComponentManager.AddEntity(Enums.Layer.Ground),
+                "Purple", "White", new Vector3(5.5f + table5.Position.X - (1f * 7),
+                    0.1f, 2.9f + table5.Position.Z));
+
+            new Chip(_shaders[ShaderConstants.TextureShader],
+                EntityComponentManager.AddEntity(Enums.Layer.Ground),
+                "Aqua", "White", new Vector3(5.5f + table5.Position.X - (1f * 8),
+                    0.1f, 2.9f + table5.Position.Z));
+
+            for (var i = 0; i < deck.Count(); i += 1)
             {
                 new Assets.Scripts.Shared.Shapes.Card(_shaders[ShaderConstants.TextureShader],
-                    EntityComponentManager.AddEntity(Enums.Layer.Ground), $"Assets/Decks/Second/SecondDeck{cardCollection.ElementAt(i).ToString()}.png",
-                        new Vector3(1.0f + (i * 0.15f), 1.0f + (i * 0.005f), 1.0f), new Quaternion(MathHelper.DegreesToRadians(90f), MathHelper.DegreesToRadians(0f), MathHelper.DegreesToRadians(180f)));
+                    EntityComponentManager.AddEntity(Enums.Layer.Ground),
+                    deck.ElementAt(i), "Second",
+                    new Vector3(5.5f + table5.Position.X - (1f * (i % 12)), 0.1f, 1.9f + table5.Position.Z - (1f * (i / 12))),
+                    new Quaternion(MathHelper.DegreesToRadians(180f), MathHelper.DegreesToRadians(180f),
+                        MathHelper.DegreesToRadians(0f)));
             }
         }
     }
