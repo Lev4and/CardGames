@@ -28,11 +28,21 @@ namespace CardGames.OpenGLGameEngine.Models.Shapes3D.Models
             }
         }
 
-        public void Draw(Shader shader, TransformComponent transform)
+        public void Draw(Shader shader, TransformComponent transform, Dictionary<string, Texture>? materialTextures)
         {
             foreach (var mesh in _meshes)
             {
+                if (materialTextures is not null && materialTextures.ContainsKey(mesh.Name))
+                {
+                    materialTextures[mesh.Name].Bind(OpenTK.Graphics.OpenGL.TextureUnit.Texture0);
+                }
+
                 mesh.Draw(shader, transform);
+
+                if (materialTextures is not null && materialTextures.ContainsKey(mesh.Name))
+                {
+                    materialTextures[mesh.Name].Unbind(OpenTK.Graphics.OpenGL.TextureUnit.Texture0);
+                }
             }
         }
 
@@ -40,24 +50,26 @@ namespace CardGames.OpenGLGameEngine.Models.Shapes3D.Models
         {
             var assimpContext = new AssimpContext();
 
-            _scene = assimpContext.ImportFile(_modelFilePath, PostProcessSteps.Triangulate | PostProcessSteps.FlipUVs);
+            _scene = assimpContext.ImportFile(_modelFilePath, PostProcessSteps.Triangulate | PostProcessSteps.FlipUVs | PostProcessSteps.GenerateSmoothNormals | PostProcessSteps.CalculateTangentSpace | PostProcessSteps.ImproveCacheLocality | PostProcessSteps.SortByPrimitiveType);
 
-            foreach (var mesh in _scene.Meshes)
+            for (var i = 0; i < _scene.MeshCount; i += 1)
             {
+                var mesh = _scene.Meshes.ElementAt(i);
+
                 var vertices = new List<float>();
 
-                for (var i = 0; i < mesh.VertexCount; i++)
+                for (var j = 0; j < mesh.VertexCount; j++)
                 {
-                    vertices.Add(mesh.Vertices[i].X);
-                    vertices.Add(mesh.Vertices[i].Y);
-                    vertices.Add(mesh.Vertices[i].Z);
+                    vertices.Add(mesh.Vertices[j].X);
+                    vertices.Add(mesh.Vertices[j].Y);
+                    vertices.Add(mesh.Vertices[j].Z);
 
-                    vertices.Add(mesh.Normals[i].X);
-                    vertices.Add(mesh.Normals[i].Y);
-                    vertices.Add(mesh.Normals[i].Z);
+                    vertices.Add(mesh.Normals[j].X);
+                    vertices.Add(mesh.Normals[j].Y);
+                    vertices.Add(mesh.Normals[j].Z);
 
-                    vertices.Add(mesh.TextureCoordinateChannels[0][i].X);
-                    vertices.Add(mesh.TextureCoordinateChannels[0][i].Y);
+                    vertices.Add(mesh.TextureCoordinateChannels[0][j].X);
+                    vertices.Add(1f - mesh.TextureCoordinateChannels[0][j].Y);
                 }
 
                 var indices = new List<uint>();
@@ -70,7 +82,9 @@ namespace CardGames.OpenGLGameEngine.Models.Shapes3D.Models
                     }
                 }
 
-                _meshes.Add(new Mesh(vertices.ToArray(), indices.ToArray()));
+                var meshName = _scene.Materials.ElementAtOrDefault(i)?.Name ?? string.Empty;
+
+                _meshes.Add(new Mesh(meshName, vertices.ToArray(), indices.ToArray()));
             }
         }
     }

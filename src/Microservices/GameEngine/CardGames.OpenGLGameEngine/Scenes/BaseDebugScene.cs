@@ -22,7 +22,7 @@ namespace CardGames.OpenGLGameEngine.Scenes
             GL.Enable(EnableCap.Blend);
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Multisample);
-            
+
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
             _shaders = new Dictionary<string, Shader>()
@@ -99,7 +99,7 @@ namespace CardGames.OpenGLGameEngine.Scenes
             {
                 new Assets.Scripts.Shared.Shapes.Card(_shaders[ShaderConstants.TextureShader],
                     EntityComponentManager.AddEntity(Enums.Layer.Ground), $"Assets/Decks/Second/SecondDeck{cardCollection.ElementAt(i).ToString()}.png",
-                        new Vector3(i % 8 * 1.5f, 1.0f, i / 8 % 8 * -1.5f));
+                        new Vector3(1.0f + (i * 0.15f), 1.0f + (i * 0.005f), 1.0f), new Quaternion(MathHelper.DegreesToRadians(90f), MathHelper.DegreesToRadians(0f), MathHelper.DegreesToRadians(180f)));
             }
         }
     }

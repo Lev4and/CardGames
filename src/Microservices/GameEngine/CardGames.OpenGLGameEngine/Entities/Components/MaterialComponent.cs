@@ -15,7 +15,7 @@ namespace CardGames.OpenGLGameEngine.Entities.Components
             _shader = shader;
 
             _diffuse = diffuse ?? 0;
-            _specular = specular ?? 1;
+            _specular = specular ?? 0;
             _shininess = shininess ?? 32.0f;
         }
 

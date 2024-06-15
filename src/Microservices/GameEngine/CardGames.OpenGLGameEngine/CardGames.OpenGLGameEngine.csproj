@@ -93,6 +93,9 @@
     <None Update="Assets\Shaders\TextShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Textures\CardSideWhite.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Textures\PlaneGray.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

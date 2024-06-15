@@ -32,10 +32,17 @@ namespace CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Shapes
                 scale != null
                     ? new Vector3(scale.Value.X, 0.01f, scale.Value.Y)
                     : new Vector3(0.1f, 0.1f, 0.1f),
-                new List<Texture>()
+                new Dictionary<string, Texture>
                 {
-                    new Texture(frontTextureFilePath),
-                    new Texture("Assets/Decks/Second/SecondDeckBack.png"),
+                    {
+                        "Side", new Texture("Assets/Textures/CardSideWhite.png")
+                    },
+                    {
+                        "Front", new Texture(frontTextureFilePath)
+                    },
+                    {
+                        "Background", new Texture("Assets/Decks/Second/SecondDeckBack.png")
+                    },
                 }));
 
             _entity.AddComponent(new StaticRigidBodyComponent());

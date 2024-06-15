@@ -7,16 +7,13 @@ namespace CardGames.OpenGLGameEngine.Entities.Components
     public class ModelComponent : ThreeDimensionalRenderedComponent
     {
         private readonly Model _model;
+        private readonly Dictionary<string, Texture>? _materialTextures;
 
         public ModelComponent(Shader shader, Model model, Vector3 position, Quaternion? rotation = null, 
-            Vector3? scale = null, List<Texture>? textures = null) : base(shader, position, rotation, scale, textures)
+            Vector3? scale = null, Dictionary<string, Texture>? materialTextures = null) : base(shader, position, rotation, scale)
         {
             _model = model;
-        }
-        public ModelComponent(Shader shader, Model model, TransformComponent transform, List<Texture>? textures = null) : 
-            base(shader, transform, textures)
-        {
-            _model = model;
+            _materialTextures = materialTextures;
         }
 
         public override void BindAndBuffer()
@@ -26,7 +23,7 @@ namespace CardGames.OpenGLGameEngine.Entities.Components
 
         public override void DrawComp()
         {
-            _model.Draw(_shader, Transform!);
+            _model.Draw(_shader, Transform!, _materialTextures);
         }
     }
 }

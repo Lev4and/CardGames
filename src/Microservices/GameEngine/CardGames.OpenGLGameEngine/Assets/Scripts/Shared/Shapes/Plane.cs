@@ -22,6 +22,7 @@ namespace CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Shapes
 
             _position = position;
             _rotation = rotation;
+
             _scale = scale;
 
             _entity.AddComponent(new ModelComponent(_shader, 
@@ -31,9 +32,11 @@ namespace CardGames.OpenGLGameEngine.Assets.Scripts.Shared.Shapes
                 scale != null 
                     ? new Vector3(scale.Value.X, 0.01f, scale.Value.Y) 
                     : new Vector3(1.0f, 0.01f, 1.0f), 
-                new List<Texture>()
+                new Dictionary<string, Texture>
                 {
-                    new Texture("Assets/Textures/PlaneGray.png")
+                    {
+                        "Material", new Texture("Assets/Textures/PlaneGray.png")
+                    }
                 }));
 
             _entity.AddComponent(new StaticRigidBodyComponent());
